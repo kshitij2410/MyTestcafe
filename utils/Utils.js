@@ -1,9 +1,9 @@
-import XPathSelector from './xpath-selector';
+import XPathSelector from '../tests/xpath-selector';
 import { Selector } from 'testcafe';
 import { t } from 'testcafe';
 
-class Utils {
-    constructor() { }
+export default class Utils {
+    constructor() {}
 
     async clickOnDropDownButton(locator) {
 
@@ -16,10 +16,11 @@ class Utils {
     }
 
     async selectDropDownOption(locator, type, value) {
-        if (locator.tartsWith("//")) {
-            const dropDown = Selector(XPathSelector('${locator}'))
+        let dropDown;
+        if (locator.startsWith("//")) {
+             dropDown = Selector(XPathSelector(locator))
         } else {
-            const dropDown = Selector('${locator}');
+             dropDown = Selector(locator);
         }
         const dropDownOptions = dropDown.find('option')
         await t.click(dropDown)
@@ -38,4 +39,4 @@ class Utils {
 
 }
 
-export default new Utils();
+//export default new Utils();
